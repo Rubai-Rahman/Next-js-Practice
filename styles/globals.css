@@ -62,6 +62,7 @@ button {
   font: inherit;
   cursor: pointer;
 }
-center {
-  
+.center {
+  margin: auto;
+  text-align: center;
 }

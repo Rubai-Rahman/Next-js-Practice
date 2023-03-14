@@ -9,7 +9,7 @@ const EventSearch = (props) => {
     e.preventDefault();
     const selectedYear = yearInputRef.current.value;
     const selectedMonth = monthInputRef.current.value;
-    console.log(props);
+  
     props.onSearch(selectedYear,selectedMonth);
   };
   return (
