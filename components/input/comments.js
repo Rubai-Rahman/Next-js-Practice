@@ -10,23 +10,26 @@ function Comments(props) {
   const [showComments, setShowComments] = useState(false);
   const notificationCtx = useContext(NotificationContext);
   const [loading, setLoading] = useState(false);
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     if (showComments) {
+      setReload(true);
       setLoading(true);
       fetch(`/api/comments/${eventId}`)
         .then((res) => res.json())
         .then((data) => {
-          setComments(data?.comments);
           setLoading(false);
+          setComments(data?.comments);
         });
     }
-  }, [showComments]);
+  }, [showComments, reload]);
   function toggleCommentsHandler() {
     setShowComments((prevStatus) => !prevStatus);
+    setReload(false);
   }
 
-  function addCommentHandler(commentData) {
+  function addCommentHandler(commentData,event) {
     notificationCtx?.showNotification({
       title: "Sending Comment ...",
       message: "Your Comment is stored",
@@ -53,6 +56,7 @@ function Comments(props) {
           message: "Your comment is Saved",
           status: "success",
         });
+        event.target.reset();
       })
       .catch((error) => {
         notificationCtx?.showNotification({
@@ -69,7 +73,9 @@ function Comments(props) {
         {showComments ? "Hide" : "Show"} Comments
       </button>
       {showComments && loading && <p>Loading ...</p>}
-      {showComments && <NewComment onAddComment={addCommentHandler} />}
+      {showComments && (
+        <NewComment onAddComment={addCommentHandler} setReload={setReload} />
+      )}
       {showComments && !loading && <CommentList items={comments} />}
     </section>
   );

@@ -6,8 +6,6 @@ function NewsletterRegistration() {
   const emailInputRef = useRef();
   const notificationCtx = useContext(NotificationContext);
 
-
-
   function registrationHandler(event) {
     event.preventDefault();
     const enterEmail = emailInputRef.current.value;
@@ -27,16 +25,17 @@ function NewsletterRegistration() {
         if (res.ok) {
           return res.json();
         }
-        res.json().then(data => {
-         throw new Error(data.message ||"Something went Wrong")
-       })
-      } )
+        res.json().then((data) => {
+          throw new Error(data.message || "Something went Wrong");
+        });
+      })
       .then((data) => {
         notificationCtx?.showNotification({
           title: "Success ...",
           message: "Successfully Registered for newsletter",
           status: "success",
         });
+        event.target.reset();
       })
       .catch((error) => {
         notificationCtx?.showNotification({

@@ -9,7 +9,7 @@ function NewComment(props) {
   const commentInputRef = useRef();
 
   function sendCommentHandler(event) {
-    
+    props.setReload(false)
     event.preventDefault();
 
     const enteredEmail = emailInputRef.current.value;
@@ -28,12 +28,12 @@ function NewComment(props) {
       setIsInvalid(true);
       return;
     }
-
-    props.onAddComment({
-      email: enteredEmail,
-      name: enteredName,
-      text: enteredComment,
-    });
+const data = {
+  email: enteredEmail,
+  name: enteredName,
+  text: enteredComment,
+};
+    props.onAddComment(data,event);
   }
 
   return (
