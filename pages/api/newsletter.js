@@ -8,7 +8,7 @@ export default async function handler(req, res) {
       return;
     }
     //events
-    //ZQ0nqUleO3fiGSwh
+    //ZQ0nqUleO3fiGSwh   
     const uri =
       "mongodb+srv://events:ZQ0nqUleO3fiGSwh@cluster0.f8dsb.mongodb.net/events?retryWrites=true&w=majority";
 
